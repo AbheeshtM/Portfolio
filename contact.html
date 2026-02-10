@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Transmit | Abheesht Mishra</title>
+  <meta name="description" content="Contact Abheesht Mishra — Generative AI Engineer">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter&display=swap" rel="stylesheet"/>
+
+  <style>
+    body {
+      background: #0a0a0f;
+      color: white;
+      font-family: Inter, sans-serif;
+      cursor: none;
+    }
+
+    h1,h2,h3 { font-family: "Space Grotesk", sans-serif; }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(14px);
+      border-radius: 18px;
+      animation: flicker 6s infinite;
+    }
+
+    /* 🔥 Flicker */
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      97% { opacity: 0.9; }
+      98% { opacity: 0.4; }
+      99% { opacity: 0.95; }
+    }
+
+    /* ⚡ Glitch Text */
+    .glitch {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .glitch::before {
+      color: #00d4ff;
+      animation: glitchTop 2.5s infinite linear alternate-reverse;
+    }
+
+    .glitch::after {
+      color: #9d4edd;
+      animation: glitchBottom 2s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitchTop {
+      0% { clip-path: inset(0 0 80% 0); transform: translate(-2px, -2px); }
+      50% { clip-path: inset(0 0 40% 0); transform: translate(2px, 0); }
+      100% { clip-path: inset(0 0 90% 0); transform: translate(0, -1px); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip-path: inset(80% 0 0 0); transform: translate(2px, 1px); }
+      50% { clip-path: inset(40% 0 0 0); transform: translate(-2px, 0); }
+      100% { clip-path: inset(90% 0 0 0); transform: translate(0, 1px); }
+    }
+
+    .cursor {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #00d4ff;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .link:hover {
+      text-shadow: 0 0 14px rgba(0,212,255,.9);
+    }
+
+    /* 🧠 Cyberpunk avatar glow */
+    .ai-avatar {
+      box-shadow: 0 0 40px rgba(157,78,221,.4);
+      animation: pulseGlow 4s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 0 40px rgba(157,78,221,.4); }
+      50% { box-shadow: 0 0 70px rgba(157,78,221,.75); }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<main class="pt-32 pb-20 px-6 max-w-4xl mx-auto text-center">
+
+  <!-- HEADER -->
+  <header class="mb-16">
+    <h1 class="text-5xl font-bold glitch bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"
+        data-text="Ground Control">
+      Ground Control
+    </h1>
+    <p class="text-gray-400 mt-4 max-w-xl mx-auto">
+      Ready to collaborate, build, or explore the AI universe together.
+    </p>
+  </header>
+
+  <!-- CONTACT CARD -->
+  <section class="glass p-10">
+
+    <!-- Cyberpunk Avatar -->
+    <div class="flex justify-center mb-8">
+      <div class="w-44 h-44 rounded-full overflow-hidden border border-purple-500/40 ai-avatar">
+        <img src="assets/images/cyberpunk.jpg"
+             alt="Neural Identity"
+             class="w-full h-full object-cover">
+      </div>
+    </div>
+
+    <p class="text-sm text-purple-400 italic mb-6">
+      Neural identity — representation in the AI universe
+    </p>
+
+    <p class="text-lg text-gray-300 mb-8">
+      Transmit a signal through any channel below.
+    </p>
+
+    <div class="space-y-6 text-lg">
+
+      <div>
+        <span class="text-gray-500 block text-sm mb-1">Primary Channel</span>
+        <a href="mailto:mishraaryan730@gmail.com" class="link text-cyan-400">
+          mishraaryan730@gmail.com
+        </a>
+      </div>
+
+      <div>
+        <span class="text-gray-500 block text-sm mb-1">Professional Network</span>
+        <a href="https://www.linkedin.com/in/abheesht-mishra" target="_blank"
+           class="link text-purple-400">
+          linkedin.com/in/abheesht-mishra
+        </a>
+      </div>
+
+      <div>
+        <span class="text-gray-500 block text-sm mb-1">Code Repository</span>
+        <a href="https://github.com/AbheeshtM" target="_blank"
+           class="link text-green-400">
+          github.com/AbheeshtM
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mt-16 text-gray-500 text-sm">
+    End of transmission · © 2026 Abheesht Mishra
+  </footer>
+
+</main>
+
+<script>
+  const cursor = document.getElementById("cursor");
+  document.addEventListener("mousemove", e => {
+    cursor.style.left = e.clientX - 9 + "px";
+    cursor.style.top = e.clientY - 9 + "px";
+  });
+
+  gsap.from("section", {
+    opacity: 0,
+    y: 30,
+    duration: 1
+  });
+</script>
+
+</body>
+</html>

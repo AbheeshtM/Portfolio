@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Journey | Abheesht Mishra</title>
+  <meta name="description" content="Professional journey and AI missions undertaken by Abheesht Mishra">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter&display=swap" rel="stylesheet"/>
+
+  <style>
+    body {
+      background: #0a0a0f;
+      color: white;
+      font-family: Inter, sans-serif;
+      cursor: none;
+    }
+
+    h1,h2,h3 { font-family: "Space Grotesk", sans-serif; }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(#00d4ff, transparent);
+    }
+
+    .node {
+      position: absolute;
+      left: 6px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #00d4ff;
+      box-shadow: 0 0 20px rgba(0,212,255,.8);
+    }
+
+    .cursor {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #00d4ff;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<main class="pt-32 pb-20 px-6 max-w-6xl mx-auto">
+
+  <!-- HEADER -->
+  <header class="text-center mb-20">
+    <h1 class="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+      Journey Through the AI Universe
+    </h1>
+    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+      Each mission represents real-world experience building, deploying, and scaling AI systems.
+    </p>
+  </header>
+
+  <!-- TIMELINE -->
+  <section class="timeline space-y-16">
+
+    <!-- CRYOLITE -->
+    <div class="relative mission">
+      <div class="node"></div>
+      <div class="glass p-8 ml-6">
+        <h3 class="text-2xl font-bold text-cyan-400 mb-1">
+          AI Integration Intern
+        </h3>
+        <p class="text-sm text-gray-400 mb-4">
+          Cryolite India Softwares Pvt. Ltd. · Hybrid · Nov 2025 – Feb 2026
+        </p>
+
+        <p class="text-gray-300 mb-4">
+          <span class="text-cyan-400 font-semibold">Mission Objective:</span>
+          Automate and scale internal business workflows using AI-powered systems.
+        </p>
+
+        <ul class="list-disc ml-6 text-gray-400 space-y-2">
+          <li>Integrated AI tools into <strong>5+ internal workflows</strong> using Python and FastAPI</li>
+          <li>Developed backend APIs exposing <strong>LLM-powered services</strong></li>
+          <li>Built and validated AI utilities using NLP and REST-based pipelines</li>
+          <li>Reduced manual operations by approximately <strong>30%</strong></li>
+        </ul>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-xs border border-cyan-400/40 text-cyan-400">FastAPI</span>
+          <span class="px-3 py-1 rounded-full text-xs border border-cyan-400/40 text-cyan-400">Python</span>
+          <span class="px-3 py-1 rounded-full text-xs border border-cyan-400/40 text-cyan-400">LLMs</span>
+          <span class="px-3 py-1 rounded-full text-xs border border-cyan-400/40 text-cyan-400">NLP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KLASSWAY -->
+    <div class="relative mission">
+      <div class="node"></div>
+      <div class="glass p-8 ml-6">
+        <h3 class="text-2xl font-bold text-purple-400 mb-1">
+          GenAI Intern
+        </h3>
+        <p class="text-sm text-gray-400 mb-4">
+          KlassWay Tech · On-Site · Jul 2025 – Oct 2025
+        </p>
+
+        <p class="text-gray-300 mb-4">
+          <span class="text-purple-400 font-semibold">Mission Objective:</span>
+          Build and deploy production-grade Generative AI applications.
+        </p>
+
+        <ul class="list-disc ml-6 text-gray-400 space-y-2">
+          <li>Developed AI-powered applications using <strong>NLP and Computer Vision</strong></li>
+          <li>Designed scalable <strong>FastAPI backends</strong> for LLM inference</li>
+          <li>Optimized inference reliability and response consistency</li>
+          <li>Collaborated with product and engineering teams on GenAI features</li>
+        </ul>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-xs border border-purple-400/40 text-purple-400">FastAPI</span>
+          <span class="px-3 py-1 rounded-full text-xs border border-purple-400/40 text-purple-400">LLMs</span>
+          <span class="px-3 py-1 rounded-full text-xs border border-purple-400/40 text-purple-400">Computer Vision</span>
+          <span class="px-3 py-1 rounded-full text-xs border border-purple-400/40 text-purple-400">GenAI</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById("cursor");
+  document.addEventListener("mousemove", e => {
+    cursor.style.left = e.clientX - 9 + "px";
+    cursor.style.top = e.clientY - 9 + "px";
+  });
+
+  // Animations
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.from(".mission", {
+    scrollTrigger: {
+      trigger: ".mission",
+      start: "top 85%"
+    },
+    opacity: 0,
+    y: 40,
+    duration: 0.8,
+    stagger: 0.2
+  });
+</script>
+
+</body>
+</html>

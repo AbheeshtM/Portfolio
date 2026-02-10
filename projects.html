@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Planets of Innovation | Abheesht Mishra</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter&display=swap" rel="stylesheet"/>
+
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+      background: #0a0a0f;
+      color: white;
+      cursor: none;
+    }
+    h1,h2,h3 { font-family: "Space Grotesk", sans-serif; }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 18px;
+    }
+
+    .planet {
+      transition: all .4s ease;
+      cursor: pointer;
+    }
+    .planet:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 0 40px rgba(0,212,255,.25);
+    }
+
+    .tag {
+      font-size: .75rem;
+      padding: .3rem .75rem;
+      border-radius: 999px;
+      background: rgba(0,212,255,.12);
+      border: 1px solid rgba(0,212,255,.3);
+      color: #00d4ff;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 520px;
+      height: 100vh;
+      background: #0a0a0f;
+      border-left: 2px solid rgba(0,212,255,.3);
+      padding: 2rem;
+      overflow-y: auto;
+      transition: right .45s ease;
+      z-index: 50;
+    }
+    .sidebar.active { right: 0; }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .cursor {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #00d4ff;
+      border-radius: 50%;
+      position: fixed;
+      z-index: 9999;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<main class="pt-32 px-6 pb-20 max-w-7xl mx-auto">
+
+  <header class="text-center mb-16">
+    <h1 class="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+      Planets of Innovation
+    </h1>
+    <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+      Each planet represents a real AI system built, deployed, and tested in production environments.
+    </p>
+  </header>
+
+  <!-- PROJECT GRID -->
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+    <!-- FirstScrape -->
+    <div class="planet glass p-6" onclick="openPlanet('firstscrape')">
+      <h3 class="text-2xl font-bold text-cyan-400 mb-2">FirstScrape</h3>
+      <p class="text-gray-400 mb-4">AI Web Intelligence Tool</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="tag">RAG</span><span class="tag">FastAPI</span><span class="tag">LLMs</span>
+      </div>
+    </div>
+
+    <!-- Quryx -->
+    <div class="planet glass p-6" onclick="openPlanet('quryx')">
+      <h3 class="text-2xl font-bold text-purple-400 mb-2">Quryx</h3>
+      <p class="text-gray-400 mb-4">AI Exam Generator</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="tag">PDF Parsing</span><span class="tag">LLMs</span>
+      </div>
+    </div>
+
+    <!-- Klassy -->
+    <div class="planet glass p-6" onclick="openPlanet('klassy')">
+      <h3 class="text-2xl font-bold text-pink-400 mb-2">Klassy</h3>
+      <p class="text-gray-400 mb-4">AI Receptionist Bot</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="tag">STT/TTS</span><span class="tag">FastAPI</span>
+      </div>
+    </div>
+
+    <!-- PixelWave -->
+    <div class="planet glass p-6" onclick="openPlanet('pixelwave')">
+      <h3 class="text-2xl font-bold text-orange-400 mb-2">PixelWave</h3>
+      <p class="text-gray-400 mb-4">Image → Sound Encoding</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="tag">Signal Processing</span><span class="tag">Multimodal</span>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <button class="close" onclick="closePlanet()">✕</button>
+  <div id="sidebarContent"></div>
+</div>
+
+<script>
+const cursor = document.getElementById("cursor");
+document.addEventListener("mousemove", e => {
+  cursor.style.left = e.clientX - 9 + "px";
+  cursor.style.top = e.clientY - 9 + "px";
+});
+
+const data = {
+  firstscrape: {
+    title: "FirstScrape",
+    desc: "Production-grade AI web intelligence system processing 100+ webpages per session using RAG pipelines.",
+    features: [
+      "FastAPI backend for scraping & inference",
+      "Prompt-driven structured extraction",
+      "LLM + RAG orchestration",
+      "Scalable architecture"
+    ],
+    github: "https://github.com/AbheeshtM/firstscrape",
+    live: "https://firstscrape.streamlit.app/"
+  },
+  quryx: {
+    title: "Quryx",
+    desc: "AI exam generator creating MCQs and descriptive questions from PDFs and topics.",
+    features: [
+      "PDF ingestion & parsing",
+      "Competitive exam alignment",
+      "FastAPI services",
+      "LLM-based generation"
+    ],
+    github: "https://github.com/AbheeshtM/Quryx",
+    live: "https://queryx.streamlit.app/"
+  },
+  klassy: {
+    title: "Klassy",
+    desc: "AI receptionist with speech-to-text, text-to-speech and conversational intelligence.",
+    features: [
+      "STT / TTS pipelines",
+      "Real-time FastAPI endpoints",
+      "Multi-LLM architecture",
+      "Low latency inference"
+    ],
+    github: "https://github.com/AbheeshtM/Klassy"
+  },
+  pixelwave: {
+    title: "PixelWave",
+    desc: "Experimental system encoding images into audio waveforms and reconstructing them.",
+    features: [
+      "Reversible multimodal encoding",
+      "Signal processing pipelines",
+      "Image reconstruction accuracy",
+      "Research-focused design"
+    ],
+    github: "https://github.com/AbheeshtM/PixelWave"
+  }
+};
+
+function openPlanet(key) {
+  const p = data[key];
+  document.getElementById("sidebarContent").innerHTML = `
+    <h2 class="text-3xl font-bold text-cyan-400 mb-4">${p.title}</h2>
+    <p class="text-gray-300 mb-4">${p.desc}</p>
+    <ul class="list-disc ml-5 text-gray-400 mb-6">
+      ${p.features.map(f => `<li>${f}</li>`).join("")}
+    </ul>
+    <div class="flex gap-4">
+      <a href="${p.github}" target="_blank" class="text-cyan-400 underline">GitHub</a>
+      ${p.live ? `<a href="${p.live}" target="_blank" class="text-purple-400 underline">Live</a>` : ""}
+    </div>
+  `;
+  document.getElementById("sidebar").classList.add("active");
+}
+
+function closePlanet() {
+  document.getElementById("sidebar").classList.remove("active");
+}
+</script>
+
+</body>
+</html>
