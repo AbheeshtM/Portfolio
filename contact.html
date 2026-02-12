@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Transmit | Abheesht Mishra</title>
-  <meta name="description" content="Contact Abheesht Mishra — Generative AI Engineer">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -13,13 +12,32 @@
 
   <style>
     body {
-      background: #0a0a0f;
+      background: #04040a;
       color: white;
       font-family: Inter, sans-serif;
       cursor: none;
     }
 
     h1,h2,h3 { font-family: "Space Grotesk", sans-serif; }
+
+    /* =========================
+       AURORA BACKGROUND
+    ========================= */
+    #aurora-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -20;
+      background: radial-gradient(circle at bottom,
+        rgba(0,212,255,0.12),
+        rgba(157,78,221,0.08),
+        #04040a 65%);
+      overflow: hidden;
+    }
+
+    canvas {
+      position: absolute;
+      inset: 0;
+    }
 
     .glass {
       background: rgba(255,255,255,0.04);
@@ -29,86 +47,101 @@
       animation: flicker 6s infinite;
     }
 
-    /* 🔥 Flicker */
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      97% { opacity: 0.9; }
-      98% { opacity: 0.4; }
-      99% { opacity: 0.95; }
-    }
-
-    /* ⚡ Glitch Text */
-    .glitch {
-      position: relative;
-      display: inline-block;
-    }
-
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .glitch::before {
-      color: #00d4ff;
-      animation: glitchTop 2.5s infinite linear alternate-reverse;
-    }
-
-    .glitch::after {
-      color: #9d4edd;
-      animation: glitchBottom 2s infinite linear alternate-reverse;
-    }
-
-    @keyframes glitchTop {
-      0% { clip-path: inset(0 0 80% 0); transform: translate(-2px, -2px); }
-      50% { clip-path: inset(0 0 40% 0); transform: translate(2px, 0); }
-      100% { clip-path: inset(0 0 90% 0); transform: translate(0, -1px); }
-    }
-
-    @keyframes glitchBottom {
-      0% { clip-path: inset(80% 0 0 0); transform: translate(2px, 1px); }
-      50% { clip-path: inset(40% 0 0 0); transform: translate(-2px, 0); }
-      100% { clip-path: inset(90% 0 0 0); transform: translate(0, 1px); }
-    }
-
-    .cursor {
-      width: 18px;
-      height: 18px;
-      border: 2px solid #00d4ff;
-      border-radius: 50%;
+    /* PORTAL */
+    #portal {
       position: fixed;
+      inset: 0;
+      background: radial-gradient(circle,
+        rgba(0,212,255,0.95),
+        rgba(10,10,15,1) 70%);
+      opacity: 0;
+      transform: scale(0.2);
       pointer-events: none;
       z-index: 9999;
     }
 
+    @keyframes flicker {
+      0%,100%{opacity:1}
+      97%{opacity:.9}
+      98%{opacity:.4}
+      99%{opacity:.95}
+    }
+
+    .glitch { position: relative; display:inline-block }
+    .glitch::before,.glitch::after{
+      content:attr(data-text);
+      position:absolute;left:0;top:0;width:100%;
+    }
+    .glitch::before{color:#00d4ff;animation:glitchTop 2.5s infinite}
+    .glitch::after{color:#9d4edd;animation:glitchBottom 2s infinite}
+
+    @keyframes glitchTop{
+      0%{clip-path:inset(0 0 80% 0)}
+      100%{clip-path:inset(0 0 40% 0)}
+    }
+    @keyframes glitchBottom{
+      0%{clip-path:inset(80% 0 0 0)}
+      100%{clip-path:inset(40% 0 0 0)}
+    }
+
+    .cursor {
+      width:18px;height:18px;
+      border:2px solid #00d4ff;
+      border-radius:50%;
+      position:fixed;
+      pointer-events:none;
+      z-index:9999;
+    }
+
     .link:hover {
-      text-shadow: 0 0 14px rgba(0,212,255,.9);
+      text-shadow:0 0 14px rgba(0,212,255,.9);
     }
 
-    /* 🧠 Cyberpunk avatar glow */
     .ai-avatar {
-      box-shadow: 0 0 40px rgba(157,78,221,.4);
-      animation: pulseGlow 4s infinite ease-in-out;
+      box-shadow:0 0 50px rgba(157,78,221,.6);
+      animation:pulseGlow 4s infinite;
     }
 
-    @keyframes pulseGlow {
-      0%,100% { box-shadow: 0 0 40px rgba(157,78,221,.4); }
-      50% { box-shadow: 0 0 70px rgba(157,78,221,.75); }
+    @keyframes pulseGlow{
+      0%,100%{box-shadow:0 0 40px rgba(157,78,221,.4)}
+      50%{box-shadow:0 0 80px rgba(157,78,221,.9)}
     }
   </style>
 </head>
 
 <body>
 
+<!-- AURORA -->
+<div id="aurora-bg">
+  <canvas id="aurora"></canvas>
+</div>
+
+<!-- PORTAL -->
+<div id="portal"></div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 px-6 py-4 glass border-b border-cyan-400/20">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html" data-target="index.html"
+       class="warp-link text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+      AM
+    </a>
+    <div class="hidden md:flex space-x-8">
+      <a href="index.html" data-target="index.html" class="warp-link text-gray-400">Launchpad</a>
+      <a href="about.html" data-target="about.html" class="warp-link text-gray-400">Mission Log</a>
+      <a href="projects.html" data-target="projects.html" class="warp-link text-gray-400">Planets</a>
+      <a href="experience.html" data-target="experience.html" class="warp-link text-gray-400">Journey</a>
+      <a href="contact.html" data-target="contact.html" class="warp-link text-cyan-400">Transmit</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 
-<main class="pt-32 pb-20 px-6 max-w-4xl mx-auto text-center">
+<!-- CONTENT -->
+<main class="relative z-10 pt-32 pb-20 px-6 max-w-4xl mx-auto text-center">
 
-  <!-- HEADER -->
   <header class="mb-16">
     <h1 class="text-5xl font-bold glitch bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"
         data-text="Ground Control">
@@ -119,55 +152,43 @@
     </p>
   </header>
 
-  <!-- CONTACT CARD -->
   <section class="glass p-10">
-
-    <!-- Cyberpunk Avatar -->
     <div class="flex justify-center mb-8">
       <div class="w-44 h-44 rounded-full overflow-hidden border border-purple-500/40 ai-avatar">
-        <img src="assets/images/cyberpunk.jpg"
-             alt="Neural Identity"
-             class="w-full h-full object-cover">
+        <img src="assets/images/cyberpunk.jpg" class="w-full h-full object-cover">
       </div>
     </div>
-
-    <p class="text-sm text-purple-400 italic mb-6">
-      Neural identity — representation in the AI universe
-    </p>
 
     <p class="text-lg text-gray-300 mb-8">
       Transmit a signal through any channel below.
     </p>
 
     <div class="space-y-6 text-lg">
-
       <div>
-        <span class="text-gray-500 block text-sm mb-1">Primary Channel</span>
+        <span class="text-gray-500 text-sm block">Primary Channel</span>
         <a href="mailto:mishraaryan730@gmail.com" class="link text-cyan-400">
           mishraaryan730@gmail.com
         </a>
       </div>
 
       <div>
-        <span class="text-gray-500 block text-sm mb-1">Professional Network</span>
-        <a href="https://www.linkedin.com/in/abheesht-mishra" target="_blank"
+        <span class="text-gray-500 text-sm block">Professional Network</span>
+        <a href="https://linkedin.com/in/abheesht-mishra" target="_blank"
            class="link text-purple-400">
           linkedin.com/in/abheesht-mishra
         </a>
       </div>
 
       <div>
-        <span class="text-gray-500 block text-sm mb-1">Code Repository</span>
+        <span class="text-gray-500 text-sm block">Code Repository</span>
         <a href="https://github.com/AbheeshtM" target="_blank"
            class="link text-green-400">
           github.com/AbheeshtM
         </a>
       </div>
-
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="mt-16 text-gray-500 text-sm">
     End of transmission · © 2026 Abheesht Mishra
   </footer>
@@ -175,17 +196,51 @@
 </main>
 
 <script>
-  const cursor = document.getElementById("cursor");
-  document.addEventListener("mousemove", e => {
-    cursor.style.left = e.clientX - 9 + "px";
-    cursor.style.top = e.clientY - 9 + "px";
-  });
+/* CURSOR */
+const cursor=document.getElementById("cursor");
+addEventListener("mousemove",e=>{
+  cursor.style.left=e.clientX-9+"px";
+  cursor.style.top=e.clientY-9+"px";
+});
 
-  gsap.from("section", {
-    opacity: 0,
-    y: 30,
-    duration: 1
-  });
+/* AURORA */
+const c=document.getElementById("aurora");
+const x=c.getContext("2d");
+function resize(){c.width=innerWidth;c.height=innerHeight}
+resize();addEventListener("resize",resize);
+
+let t=0;
+function aurora(){
+  x.clearRect(0,0,c.width,c.height);
+  for(let i=0;i<6;i++){
+    x.beginPath();
+    x.strokeStyle=`rgba(${i*40},212,255,0.15)`;
+    x.lineWidth=120;
+    for(let y=0;y<c.height;y+=20){
+      x.lineTo(
+        Math.sin(y*0.01+t+i)*120 + c.width/2,
+        y
+      );
+    }
+    x.stroke();
+  }
+  t+=0.002;
+  requestAnimationFrame(aurora);
+}
+aurora();
+
+/* PORTAL */
+const portal=document.getElementById("portal");
+document.querySelectorAll(".warp-link").forEach(link=>{
+  link.onclick=e=>{
+    e.preventDefault();
+    portal.style.transformOrigin=`${e.clientX}px ${e.clientY}px`;
+    gsap.to(portal,{
+      opacity:1,scale:3,duration:.7,ease:"power2.inOut",
+      onComplete:()=>location.href=link.dataset.target
+    });
+  };
+});
 </script>
 
 </body>

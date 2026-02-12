@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Journey | Abheesht Mishra</title>
-  <meta name="description" content="Professional journey and AI missions undertaken by Abheesht Mishra">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -14,7 +13,7 @@
 
   <style>
     body {
-      background: #0a0a0f;
+      background: #05050b;
       color: white;
       font-family: Inter, sans-serif;
       cursor: none;
@@ -22,11 +21,44 @@
 
     h1,h2,h3 { font-family: "Space Grotesk", sans-serif; }
 
+    /* =========================
+       EXPERIENCE BACKGROUND
+    ========================= */
+    #experience-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -20;
+      overflow: hidden;
+      background: radial-gradient(circle at bottom,
+        rgba(0,212,255,0.12),
+        #05050b 60%);
+    }
+
+    #lane-stars {
+      position: absolute;
+      inset: 0;
+    }
+
     .glass {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.1);
       backdrop-filter: blur(12px);
       border-radius: 18px;
+    }
+
+    /* PORTAL */
+    #portal {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(
+        circle at center,
+        rgba(0,212,255,0.95),
+        rgba(10,10,15,1) 70%
+      );
+      opacity: 0;
+      transform: scale(0.2);
+      pointer-events: none;
+      z-index: 9999;
     }
 
     .timeline {
@@ -68,11 +100,37 @@
 
 <body>
 
+<!-- EXPERIENCE BACKGROUND -->
+<div id="experience-bg">
+  <canvas id="lane-stars"></canvas>
+</div>
+
+<!-- PORTAL -->
+<div id="portal"></div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 px-6 py-4 glass border-b border-cyan-400/20">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html" data-target="index.html"
+       class="warp-link text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+      AM
+    </a>
+    <div class="hidden md:flex space-x-8">
+      <a href="index.html" data-target="index.html" class="warp-link text-gray-400">Launchpad</a>
+      <a href="about.html" data-target="about.html" class="warp-link text-gray-400">Mission Log</a>
+      <a href="projects.html" data-target="projects.html" class="warp-link text-gray-400">Planets</a>
+      <a href="experience.html" data-target="experience.html" class="warp-link text-cyan-400">Journey</a>
+      <a href="contact.html" data-target="contact.html" class="warp-link text-gray-400">Transmit</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 
-<main class="pt-32 pb-20 px-6 max-w-6xl mx-auto">
+<!-- CONTENT -->
+<main class="relative z-10 pt-32 pb-20 px-6 max-w-6xl mx-auto">
 
-  <!-- HEADER -->
   <header class="text-center mb-20">
     <h1 class="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
       Journey Through the AI Universe
@@ -82,70 +140,31 @@
     </p>
   </header>
 
-  <!-- TIMELINE -->
   <section class="timeline space-y-16">
 
-    <!-- CRYOLITE -->
     <div class="relative mission">
       <div class="node"></div>
       <div class="glass p-8 ml-6">
-        <h3 class="text-2xl font-bold text-cyan-400 mb-1">
-          AI Integration Intern
-        </h3>
-        <p class="text-sm text-gray-400 mb-4">
-          Cryolite India Softwares Pvt. Ltd. · Hybrid · Nov 2025 – Feb 2026
-        </p>
-
-        <p class="text-gray-300 mb-4">
-          <span class="text-cyan-400 font-semibold">Mission Objective:</span>
-          Automate and scale internal business workflows using AI-powered systems.
-        </p>
-
+        <h3 class="text-2xl font-bold text-cyan-400 mb-1">AI Integration Intern</h3>
+        <p class="text-sm text-gray-400 mb-4">Cryolite India · Nov 2025 – Feb 2026</p>
         <ul class="list-disc ml-6 text-gray-400 space-y-2">
-          <li>Integrated AI tools into <strong>5+ internal workflows</strong> using Python and FastAPI</li>
-          <li>Developed backend APIs exposing <strong>LLM-powered services</strong></li>
-          <li>Built and validated AI utilities using NLP and REST-based pipelines</li>
-          <li>Reduced manual operations by approximately <strong>30%</strong></li>
+          <li>Integrated AI into 5+ workflows</li>
+          <li>Built FastAPI + LLM services</li>
+          <li>Reduced manual ops by ~30%</li>
         </ul>
-
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="px-3 py-1 rounded-full text-xs border border-cyan-400/40 text-cyan-400">FastAPI</span>
-          <span class="px-3 py-1 rounded-full text-xs border border-cyan-400/40 text-cyan-400">Python</span>
-          <span class="px-3 py-1 rounded-full text-xs border border-cyan-400/40 text-cyan-400">LLMs</span>
-          <span class="px-3 py-1 rounded-full text-xs border border-cyan-400/40 text-cyan-400">NLP</span>
-        </div>
       </div>
     </div>
 
-    <!-- KLASSWAY -->
     <div class="relative mission">
       <div class="node"></div>
       <div class="glass p-8 ml-6">
-        <h3 class="text-2xl font-bold text-purple-400 mb-1">
-          GenAI Intern
-        </h3>
-        <p class="text-sm text-gray-400 mb-4">
-          KlassWay Tech · On-Site · Jul 2025 – Oct 2025
-        </p>
-
-        <p class="text-gray-300 mb-4">
-          <span class="text-purple-400 font-semibold">Mission Objective:</span>
-          Build and deploy production-grade Generative AI applications.
-        </p>
-
+        <h3 class="text-2xl font-bold text-purple-400 mb-1">GenAI Intern</h3>
+        <p class="text-sm text-gray-400 mb-4">KlassWay Tech · Jul 2025 – Oct 2025</p>
         <ul class="list-disc ml-6 text-gray-400 space-y-2">
-          <li>Developed AI-powered applications using <strong>NLP and Computer Vision</strong></li>
-          <li>Designed scalable <strong>FastAPI backends</strong> for LLM inference</li>
-          <li>Optimized inference reliability and response consistency</li>
-          <li>Collaborated with product and engineering teams on GenAI features</li>
+          <li>Built production GenAI apps</li>
+          <li>Designed scalable APIs</li>
+          <li>Improved inference reliability</li>
         </ul>
-
-        <div class="mt-4 flex flex-wrap gap-2">
-          <span class="px-3 py-1 rounded-full text-xs border border-purple-400/40 text-purple-400">FastAPI</span>
-          <span class="px-3 py-1 rounded-full text-xs border border-purple-400/40 text-purple-400">LLMs</span>
-          <span class="px-3 py-1 rounded-full text-xs border border-purple-400/40 text-purple-400">Computer Vision</span>
-          <span class="px-3 py-1 rounded-full text-xs border border-purple-400/40 text-purple-400">GenAI</span>
-        </div>
       </div>
     </div>
 
@@ -153,26 +172,70 @@
 </main>
 
 <script>
-  // Cursor
-  const cursor = document.getElementById("cursor");
-  document.addEventListener("mousemove", e => {
-    cursor.style.left = e.clientX - 9 + "px";
-    cursor.style.top = e.clientY - 9 + "px";
-  });
+/* CURSOR */
+const cursor = document.getElementById("cursor");
+document.addEventListener("mousemove", e => {
+  cursor.style.left = e.clientX - 9 + "px";
+  cursor.style.top = e.clientY - 9 + "px";
+});
 
-  // Animations
-  gsap.registerPlugin(ScrollTrigger);
+/* SCROLL ANIMATION */
+gsap.registerPlugin(ScrollTrigger);
+gsap.from(".mission", {
+  scrollTrigger: { trigger: ".mission", start: "top 85%" },
+  opacity: 0,
+  y: 40,
+  duration: 0.8,
+  stagger: 0.2
+});
 
-  gsap.from(".mission", {
-    scrollTrigger: {
-      trigger: ".mission",
-      start: "top 85%"
-    },
-    opacity: 0,
-    y: 40,
-    duration: 0.8,
-    stagger: 0.2
+/* STAR LANES */
+const canvas = document.getElementById("lane-stars");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+const stars = Array.from({ length: 280 }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  speed: Math.random() * 0.35 + 0.15,
+  r: Math.random() * 1.2
+}));
+
+function animateStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    s.y += s.speed;
+    if (s.y > canvas.height) s.y = 0;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,0.6)";
+    ctx.fill();
   });
+  requestAnimationFrame(animateStars);
+}
+animateStars();
+
+/* PORTAL TRANSITION */
+const portal = document.getElementById("portal");
+document.querySelectorAll(".warp-link").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    portal.style.transformOrigin = `${e.clientX}px ${e.clientY}px`;
+    gsap.to(portal, {
+      opacity: 1,
+      scale: 3,
+      duration: 0.7,
+      ease: "power2.inOut",
+      onComplete: () => location.href = link.dataset.target
+    });
+  });
+});
 </script>
 
 </body>

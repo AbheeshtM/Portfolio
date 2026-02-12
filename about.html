@@ -30,6 +30,22 @@ h1,h2,h3 { font-family:"Space Grotesk",sans-serif; }
   border-radius:18px;
 }
 
+/* PORTAL */
+#portal{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(
+    circle at center,
+    rgba(0,212,255,.95) 0%,
+    rgba(0,212,255,.6) 35%,
+    rgba(10,10,15,1) 70%
+  );
+  opacity:0;
+  transform:scale(.2);
+  pointer-events:none;
+  z-index:9999;
+}
+
 .custom-cursor{
   width:18px;height:18px;
   border:2px solid #00d4ff;
@@ -47,10 +63,7 @@ h1,h2,h3 { font-family:"Space Grotesk",sans-serif; }
 }
 
 @media(max-width:640px){
-  .profile-wrapper{
-    width:180px;
-    height:180px;
-  }
+  .profile-wrapper{width:180px;height:180px;}
 }
 
 .profile-ring{
@@ -73,26 +86,11 @@ h1,h2,h3 { font-family:"Space Grotesk",sans-serif; }
   box-shadow:0 0 14px rgba(0,212,255,.9);
 }
 
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
-
-.profile-img{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  overflow:hidden;
-  border:1px solid rgba(0,212,255,0.4);
-  box-shadow:0 0 35px rgba(0,212,255,.45);
-  transition:transform .2s ease;
-}
+@keyframes spin{to{transform:rotate(360deg);}}
 
 /* subtle parallax */
-.profile-parallax{
-  will-change:transform;
-}
+.profile-parallax{will-change:transform;}
 
-/* mobile safety */
 @media(max-width:640px){
   .profile-ring{display:none;}
 }
@@ -101,6 +99,28 @@ h1,h2,h3 { font-family:"Space Grotesk",sans-serif; }
 
 <body>
 
+<!-- PORTAL -->
+<div id="portal"></div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 px-6 py-4 glass-panel border-b border-cyan-400/20">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html" data-target="index.html"
+       class="warp-link text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+      AM
+    </a>
+
+    <div class="hidden md:flex space-x-8">
+      <a href="index.html" data-target="index.html" class="warp-link text-gray-400 hover:text-cyan-400">Launchpad</a>
+      <a href="about.html" data-target="about.html" class="warp-link text-cyan-400">Mission Log</a>
+      <a href="projects.html" data-target="projects.html" class="warp-link text-gray-400 hover:text-cyan-400">Planets</a>
+      <a href="experience.html" data-target="experience.html" class="warp-link text-gray-400 hover:text-cyan-400">Journey</a>
+      <a href="contact.html" data-target="contact.html" class="warp-link text-gray-400 hover:text-cyan-400">Transmit</a>
+    </div>
+  </div>
+</nav>
+
+<!-- CURSOR -->
 <div class="custom-cursor" id="cursor"></div>
 <div id="canvas-container" class="fixed inset-0 -z-10"></div>
 
@@ -123,45 +143,37 @@ h1,h2,h3 { font-family:"Space Grotesk",sans-serif; }
   <div class="flex flex-col md:flex-row gap-10 items-center md:items-start">
 
     <!-- TEXT -->
-    <div class="md:w-2/3">
-      <p class="text-xl md:text-2xl leading-relaxed text-gray-300 font-light italic mb-8">
-  "Abheesht Mishra is a voyager of the AI cosmos — navigating the intersection of intelligence,
-  engineering, and real-world impact. His journey began with a deep curiosity for how machines
-  understand language, reason over information, and generate knowledge beyond static rules.
-</p>
+    <div class="md:w-2/3 text-gray-400 leading-relaxed space-y-6">
+      <p class="italic text-xl text-gray-300">
+        "Abheesht Mishra is a voyager of the AI cosmos — navigating the intersection
+        of intelligence, engineering, and real-world impact."
+      </p>
 
-<p class="text-lg leading-relaxed text-gray-400 mb-6">
-  Over time, that curiosity evolved into hands-on mastery of <span class="text-cyan-400">Generative AI systems</span>,
-  where he focuses on building production-ready applications using
-  <span class="text-cyan-400">Large Language Models (LLMs)</span>,
-  <span class="text-cyan-400">Retrieval-Augmented Generation (RAG)</span>,
-  and scalable <span class="text-cyan-400">FastAPI backends</span>.
-  His work emphasizes not just model output, but system reliability, latency, and real-world usability.
-</p>
+      <p>
+        He focuses on building <span class="text-cyan-400">production-grade Generative AI systems</span>
+        using LLMs, RAG pipelines, and scalable FastAPI backends, with emphasis on
+        reliability, latency, and usability.
+      </p>
 
-<p class="text-lg leading-relaxed text-gray-400 mb-6">
-  Through internships and independent projects, Abheesht has engineered AI systems that
-  scrape and reason over the web, generate exams from unstructured data,
-  orchestrate multi-model LLM workflows, and expose intelligent capabilities through clean,
-  well-designed APIs. He is especially interested in bridging raw model intelligence with
-  structured pipelines that can be deployed, monitored, and scaled.
-</p>
+      <p>
+        Through internships and independent projects, he has engineered AI systems
+        that scrape and reason over the web, generate exams from unstructured data,
+        orchestrate multi-model workflows, and expose intelligence through clean APIs.
+      </p>
 
-<p class="text-lg leading-relaxed text-gray-400 mb-6">
-  His technical toolkit spans the Python ecosystem — from deep learning frameworks like
-  PyTorch to modern AI tooling, vector databases, and prompt-driven reasoning workflows.
-  Beyond code, he values system design, clarity of thought, and the ability to translate
-  complex AI concepts into solutions that teams and users can actually trust.
-</p>
+      <p>
+        His toolkit spans the Python ecosystem — from deep learning frameworks to
+        modern AI tooling, vector databases, and prompt-driven reasoning workflows.
+      </p>
 
-<p class="text-lg leading-relaxed text-gray-400">
-  In the vast expanse of artificial intelligence, Abheesht operates as both
-  <span class="text-purple-400">explorer and architect</span> —
-  mapping unexplored possibilities while building the vessels that carry intelligence
-  from research into reality."
-</p>
+      <p>
+        In the vast expanse of AI, Abheesht operates as both
+        <span class="text-purple-400">explorer and architect</span>.
+      </p>
 
-      <span class="text-cyan-400 text-sm">Decoded from transmission logs · Earth 2024</span>
+      <span class="text-cyan-400 text-sm">
+        Decoded from transmission logs · Earth 2024
+      </span>
     </div>
 
     <!-- PROFILE -->
@@ -171,7 +183,7 @@ h1,h2,h3 { font-family:"Space Grotesk",sans-serif; }
         <div class="profile-img profile-parallax" id="profileImg">
           <img src="assets/images/pfp.jpeg"
                alt="Abheesht Mishra"
-               class="w-full h-full object-cover">
+               class="w-full h-full object-cover rounded-full">
         </div>
       </div>
     </div>
@@ -193,14 +205,14 @@ document.addEventListener("mousemove",e=>{
 /* parallax */
 const img=document.getElementById("profileImg");
 window.addEventListener("mousemove",e=>{
-  const x=(e.clientX/window.innerWidth-0.5)*10;
-  const y=(e.clientY/window.innerHeight-0.5)*10;
+  const x=(e.clientX/window.innerWidth-.5)*10;
+  const y=(e.clientY/window.innerHeight-.5)*10;
   img.style.transform=`translate(${x}px,${y}px)`;
 });
 
 /* stars */
 const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+const camera=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,.1,1000);
 const renderer=new THREE.WebGLRenderer({alpha:true});
 renderer.setSize(innerWidth,innerHeight);
 document.getElementById("canvas-container").appendChild(renderer.domElement);
@@ -210,7 +222,7 @@ const count=4000;
 const arr=new Float32Array(count*3);
 for(let i=0;i<count*3;i++){arr[i]=(Math.random()-.5)*100;}
 geo.setAttribute("position",new THREE.BufferAttribute(arr,3));
-const mat=new THREE.PointsMaterial({color:0xffffff,size:0.02,opacity:.6,transparent:true});
+const mat=new THREE.PointsMaterial({color:0xffffff,size:.02,opacity:.6,transparent:true});
 const stars=new THREE.Points(geo,mat);
 scene.add(stars);
 camera.position.z=5;
@@ -222,10 +234,33 @@ function animate(){
 }
 animate();
 
+/* resize */
 window.addEventListener("resize",()=>{
   camera.aspect=innerWidth/innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth,innerHeight);
+});
+
+/* PORTAL TRANSITION */
+const portal=document.getElementById("portal");
+document.querySelectorAll(".warp-link").forEach(link=>{
+  link.addEventListener("click",e=>{
+    e.preventDefault();
+    const target=link.dataset.target;
+    portal.style.transformOrigin=`${e.clientX}px ${e.clientY}px`;
+
+    gsap.to(portal,{
+      opacity:1,
+      scale:3,
+      duration:.7,
+      ease:"power2.inOut",
+      onComplete:()=>window.location.href=target
+    });
+  });
+});
+
+window.addEventListener("load",()=>{
+  gsap.set("#portal",{opacity:0,scale:.2});
 });
 </script>
 

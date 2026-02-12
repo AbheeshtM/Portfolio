@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Planets of Innovation | Abheesht Mishra</title>
 
+  <!-- Tailwind & GSAP -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter&display=swap" rel="stylesheet"/>
 
   <style>
@@ -17,8 +18,35 @@
       background: #0a0a0f;
       color: white;
       cursor: none;
+      overflow-x: hidden;
     }
     h1,h2,h3 { font-family: "Space Grotesk", sans-serif; }
+
+    /* 🌌 Cosmic Background */
+    .cosmic-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at center,
+          rgba(130, 90, 255, 0.22) 0%,
+          rgba(0, 212, 255, 0.14) 18%,
+          rgba(20, 20, 30, 0.95) 55%,
+          #0a0a0f 70%);
+      animation: cosmicPulse 16s ease-in-out infinite alternate;
+    }
+
+    @keyframes cosmicPulse {
+      0% { transform: scale(1); filter: blur(0px); }
+      100% { transform: scale(1.3); filter: blur(7px); }
+    }
+
+    #stars {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
 
     .glass {
       background: rgba(255,255,255,0.04);
@@ -30,10 +58,34 @@
     .planet {
       transition: all .4s ease;
       cursor: pointer;
+      position: relative;
     }
+
     .planet:hover {
       transform: translateY(-10px) scale(1.02);
       box-shadow: 0 0 40px rgba(0,212,255,.25);
+    }
+
+    /* 🔥 FLAGSHIP */
+    .flagship {
+      border: 1px solid rgba(0,212,255,.45);
+      box-shadow:
+        0 0 30px rgba(0,212,255,.45),
+        inset 0 0 20px rgba(0,212,255,.15);
+    }
+
+    .flagship::before {
+      content: "FLAGSHIP";
+      position: absolute;
+      top: -12px;
+      right: 16px;
+      font-size: 0.65rem;
+      letter-spacing: .14em;
+      padding: 4px 10px;
+      background: rgba(0,212,255,.2);
+      border: 1px solid rgba(0,212,255,.5);
+      color: #00d4ff;
+      border-radius: 999px;
     }
 
     .tag {
@@ -65,6 +117,7 @@
       position: absolute;
       top: 20px;
       right: 20px;
+      font-size: 1.4rem;
     }
 
     .cursor {
@@ -80,143 +133,258 @@
 </head>
 
 <body>
+<div id="portal"></div>
 
+<div class="cosmic-bg"></div>
+<canvas id="stars"></canvas>
 <div class="cursor" id="cursor"></div>
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 px-6 py-4 glass border-b border-cyan-400/20">
+  <div class="max-w-7xl mx-auto flex justify-between items-center">
+    <a href="index.html" data-target="index.html"
+       class="warp-link text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+      AM
+    </a>
+    <div class="hidden md:flex space-x-8">
+      <a href="index.html" data-target="index.html" class="warp-link text-gray-400">Launchpad</a>
+      <a href="about.html" data-target="about.html" class="warp-link text-gray-400">Mission Log</a>
+      <a href="projects.html" data-target="projects.html" class="warp-link text-cyan-400">Planets</a>
+      <a href="experience.html" data-target="experience.html" class="warp-link text-gray-400">Journey</a>
+      <a href="contact.html" data-target="contact.html" class="warp-link text-gray-400">Transmit</a>
+    </div>
+  </div>
+</nav>
+
 
 <main class="pt-32 px-6 pb-20 max-w-7xl mx-auto">
+
+
 
   <header class="text-center mb-16">
     <h1 class="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
       Planets of Innovation
     </h1>
     <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
-      Each planet represents a real AI system built, deployed, and tested in production environments.
+      Each planet represents a real AI system built, deployed, and validated under production constraints.
     </p>
   </header>
 
-  <!-- PROJECT GRID -->
   <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-    <!-- FirstScrape -->
+    <div class="planet glass p-6 flagship" onclick="openPlanet('documint')">
+      <h3 class="text-2xl font-bold text-purple-300 mb-2">DocuMint</h3>
+      <p class="text-gray-400 mb-4">Production-grade RAG system</p>
+      <div class="flex gap-2">
+        <span class="tag">RAG</span><span class="tag">FAISS</span><span class="tag">Groq</span>
+      </div>
+    </div>
+
+    <div class="planet glass p-6 flagship" onclick="openPlanet('llmEvaluator')">
+      <h3 class="text-2xl font-bold text-cyan-300 mb-2">LLM Evaluator Lab</h3>
+      <p class="text-gray-400 mb-4">LLM reliability & benchmarking</p>
+      <div class="flex gap-2">
+        <span class="tag">Evaluation</span><span class="tag">Bias</span><span class="tag">Calibration</span>
+      </div>
+    </div>
+
     <div class="planet glass p-6" onclick="openPlanet('firstscrape')">
       <h3 class="text-2xl font-bold text-cyan-400 mb-2">FirstScrape</h3>
       <p class="text-gray-400 mb-4">AI Web Intelligence Tool</p>
-      <div class="flex flex-wrap gap-2">
-        <span class="tag">RAG</span><span class="tag">FastAPI</span><span class="tag">LLMs</span>
-      </div>
     </div>
 
-    <!-- Quryx -->
     <div class="planet glass p-6" onclick="openPlanet('quryx')">
       <h3 class="text-2xl font-bold text-purple-400 mb-2">Quryx</h3>
       <p class="text-gray-400 mb-4">AI Exam Generator</p>
-      <div class="flex flex-wrap gap-2">
-        <span class="tag">PDF Parsing</span><span class="tag">LLMs</span>
-      </div>
     </div>
 
-    <!-- Klassy -->
     <div class="planet glass p-6" onclick="openPlanet('klassy')">
       <h3 class="text-2xl font-bold text-pink-400 mb-2">Klassy</h3>
       <p class="text-gray-400 mb-4">AI Receptionist Bot</p>
-      <div class="flex flex-wrap gap-2">
-        <span class="tag">STT/TTS</span><span class="tag">FastAPI</span>
-      </div>
     </div>
 
-    <!-- PixelWave -->
     <div class="planet glass p-6" onclick="openPlanet('pixelwave')">
       <h3 class="text-2xl font-bold text-orange-400 mb-2">PixelWave</h3>
-      <p class="text-gray-400 mb-4">Image → Sound Encoding</p>
-      <div class="flex flex-wrap gap-2">
-        <span class="tag">Signal Processing</span><span class="tag">Multimodal</span>
-      </div>
+      <p class="text-gray-400 mb-4">Multimodal Research System</p>
     </div>
 
   </section>
 </main>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
   <button class="close" onclick="closePlanet()">✕</button>
   <div id="sidebarContent"></div>
 </div>
 
 <script>
-const cursor = document.getElementById("cursor");
-document.addEventListener("mousemove", e => {
-  cursor.style.left = e.clientX - 9 + "px";
-  cursor.style.top = e.clientY - 9 + "px";
+  /* PORTAL TRANSITION */
+const portal = document.getElementById("portal");
+document.querySelectorAll(".warp-link").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    portal.style.transformOrigin = `${e.clientX}px ${e.clientY}px`;
+    gsap.to(portal, {
+      opacity: 1,
+      scale: 3,
+      duration: 0.7,
+      ease: "power2.inOut",
+      onComplete: () => location.href = link.dataset.target
+    });
+  });
 });
 
+/* Cursor */
+const cursor=document.getElementById("cursor");
+addEventListener("mousemove",e=>{
+  cursor.style.left=e.clientX-9+"px";
+  cursor.style.top=e.clientY-9+"px";
+});
+
+/* Stars */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+let stars=[];
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+resize(); addEventListener("resize",resize);
+
+function initStars(){
+  stars=[...Array(140)].map(()=>({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*1.2+.3,
+    a:Math.random()*.6+.1,
+    vx:(Math.random()-.5)*.05,
+    vy:(Math.random()-.5)*.05
+  }));
+}
+initStars();
+
+function animateStars(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s=>{
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${s.a})`;
+    ctx.fill();
+    s.x+=s.vx; s.y+=s.vy;
+    if(s.x<0||s.x>canvas.width)s.vx*=-1;
+    if(s.y<0||s.y>canvas.height)s.vy*=-1;
+  });
+  requestAnimationFrame(animateStars);
+}
+animateStars();
+
+/* Data */
 const data = {
+  documint: {
+    title: "DocuMint",
+    desc: "DocuMint is a modular, production-grade Retrieval-Augmented Generation (RAG) system designed to ingest, index, and reason over large documents with strict grounding and zero hallucination tolerance. Built for real-world document chaos, it processes files up to 100 pages (25MB) while maintaining session-isolated retrieval pipelines suitable for enterprise-grade knowledge systems.",
+    features: [
+      "Deterministic parsing for PDF, DOCX, HTML, CSV, Markdown & source code",
+      "Local embeddings using sentence-transformers (no external embedding APIs)",
+      "Session-scoped FAISS vector stores to prevent cross-document leakage",
+      "Groq-powered low-latency LLM inference",
+      "Strict context grounding with hallucination-safe prompting",
+      "Hard token & memory limits for predictable behavior",
+      "Structured JSON logging for latency & retrieval metrics",
+      "Fully exportable RAG sessions (document, index, metadata, chat history)"
+    ],
+    github: "https://github.com/AbheeshtM/Documint",
+    live: "https://docu-mint.streamlit.app/"
+  },
+
+  llmEvaluator: {
+    title: "LLM Evaluator Lab",
+    desc: "LLM Evaluator Lab is a reproducible evaluation framework designed to measure the reliability, trustworthiness, and decision quality of Large Language Models on structured tabular data. The system focuses on evaluation—not fine-tuning—and enables fair, apples-to-apples benchmarking of multiple LLMs under identical experimental conditions.",
+    features: [
+      "Accuracy measurement on structured datasets",
+      "Detection of high-confidence incorrect predictions (hallucinations)",
+      "Bias analysis across sensitive demographic attributes",
+      "Confidence calibration metrics to detect overconfidence",
+      "Artifact-based caching for resumable & reproducible runs",
+      "Deterministic sampling & fixed prompts",
+      "Multi-LLM benchmarking under identical pipelines"
+    ],
+    github: "https://github.com/AbheeshtM/LLM-Evaluator-Lab"
+  },
+
   firstscrape: {
     title: "FirstScrape",
-    desc: "Production-grade AI web intelligence system processing 100+ webpages per session using RAG pipelines.",
+    desc: "FirstScrape is a live AI-powered web intelligence system that scrapes public webpages and converts noisy HTML into clean, structured insights. It combines deterministic scraping with prompt-driven LLM reasoning to extract summaries, links, prices, FAQs, and comparative insights in real time.",
     features: [
-      "FastAPI backend for scraping & inference",
-      "Prompt-driven structured extraction",
-      "LLM + RAG orchestration",
-      "Scalable architecture"
+      "Single & multi-URL scraping support",
+      "HTML cleaning and normalization using BeautifulSoup",
+      "Prompt presets for summarization, links, prices & FAQs",
+      "Content size & token control for predictable latency",
+      "Groq-powered LLM reasoning (LLaMA 3.1)",
+      "Export results as JSON or TXT",
+      "Fully live and free Streamlit deployment"
     ],
     github: "https://github.com/AbheeshtM/firstscrape",
     live: "https://firstscrape.streamlit.app/"
   },
+
   quryx: {
     title: "Quryx",
-    desc: "AI exam generator creating MCQs and descriptive questions from PDFs and topics.",
+    desc: "Quryx is an AI-powered exam generation engine that converts any syllabus, topic, or study material into authentic, exam-style question papers. Unlike PDF chatbots, Quryx replicates real exam patterns with difficulty calibration and format awareness.",
     features: [
-      "PDF ingestion & parsing",
-      "Competitive exam alignment",
-      "FastAPI services",
-      "LLM-based generation"
+      "Exam Topic Mode using real exam patterns (JEE, UPSC, GRE, GATE, CAT)",
+      "Web-backed pattern discovery using DuckDuckGo search",
+      "Difficulty-aware question generation (Easy / Medium / Hard)",
+      "MCQ and descriptive question formats",
+      "PDF & notes-based strict content grounding",
+      "Ideal for self-testing, revision & coaching institutes"
     ],
     github: "https://github.com/AbheeshtM/Quryx",
     live: "https://queryx.streamlit.app/"
   },
+
   klassy: {
     title: "Klassy",
-    desc: "AI receptionist with speech-to-text, text-to-speech and conversational intelligence.",
+    desc: "Klassy is a real-time AI-powered school receptionist designed for Indian educational institutions. It combines offline speech pipelines, contextual memory, and Groq-powered LLM intelligence to handle everyday school and general queries on low-resource systems.",
     features: [
-      "STT / TTS pipelines",
-      "Real-time FastAPI endpoints",
-      "Multi-LLM architecture",
-      "Low latency inference"
+      "Wake-word activated voice interaction ('Klassy')",
+      "Offline speech-to-text using Vosk",
+      "Local text-to-speech using pyttsx3",
+      "City-aware time, date & weather responses (IST, INR)",
+      "Groq LLM-powered school & general query handling",
+      "Short-term contextual memory for follow-ups",
+      "Inappropriate query filtering for safe deployment",
+      "Designed for Raspberry Pi & low-resource devices"
     ],
     github: "https://github.com/AbheeshtM/Klassy"
   },
+
   pixelwave: {
     title: "PixelWave",
-    desc: "Experimental system encoding images into audio waveforms and reconstructing them.",
+    desc: "PixelWave is an experimental multimodal research toolkit that explores reversible transformations between visual and auditory data. It enables grayscale and RGB images to be sonified into WAV audio signals—and reconstructed back—demonstrating alternative data representations beyond pixels.",
     features: [
-      "Reversible multimodal encoding",
-      "Signal processing pipelines",
-      "Image reconstruction accuracy",
-      "Research-focused design"
+      "Image → audio sonification (grayscale & RGB)",
+      "Audio → image reconstruction (desonification)",
+      "Multi-channel audio encoding for RGB images",
+      "Reversible signal-based transformations",
+      "Useful for data sonification & audio-visual art",
+      "Explores cross-modal representation concepts"
     ],
     github: "https://github.com/AbheeshtM/PixelWave"
   }
 };
 
-function openPlanet(key) {
-  const p = data[key];
-  document.getElementById("sidebarContent").innerHTML = `
+
+function openPlanet(k){
+  const p=data[k];
+  sidebarContent.innerHTML=`
     <h2 class="text-3xl font-bold text-cyan-400 mb-4">${p.title}</h2>
     <p class="text-gray-300 mb-4">${p.desc}</p>
-    <ul class="list-disc ml-5 text-gray-400 mb-6">
-      ${p.features.map(f => `<li>${f}</li>`).join("")}
+    <ul class="list-disc ml-6 text-gray-400 mb-6">
+      ${p.features.map(f=>`<li>${f}</li>`).join("")}
     </ul>
     <div class="flex gap-4">
       <a href="${p.github}" target="_blank" class="text-cyan-400 underline">GitHub</a>
-      ${p.live ? `<a href="${p.live}" target="_blank" class="text-purple-400 underline">Live</a>` : ""}
-    </div>
-  `;
-  document.getElementById("sidebar").classList.add("active");
+      ${p.live?`<a href="${p.live}" target="_blank" class="text-purple-400 underline">Live</a>`:""}
+    </div>`;
+  sidebar.classList.add("active");
 }
-
-function closePlanet() {
-  document.getElementById("sidebar").classList.remove("active");
-}
+function closePlanet(){ sidebar.classList.remove("active"); }
 </script>
 
 </body>
